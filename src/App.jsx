@@ -12,8 +12,8 @@ const ThemeContext = createContext()
 function App() {
 
     const [tweets, setTweets] = useState(defaultTweets)
-    const [theme, setTheme] = useState(storedTheme ? storedTheme : 'light');
     const storedTheme = localStorage.getItem('theme');
+    const [theme, setTheme] = useState(storedTheme ? storedTheme : 'light');
 
     useEffect(() => {
         theme === 'light'
