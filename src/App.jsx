@@ -7,12 +7,13 @@ import user from './assets/data/user.js'
 import { createContext } from 'react'
 
 const MyContext = createContext()
+const ThemeContext = createContext()
 
 function App() {
 
-
     const [tweets, setTweets] = useState(defaultTweets)
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(storedTheme ? storedTheme : 'light');
+    const storedTheme = localStorage.getItem('theme');
 
     useEffect(() => {
         theme === 'light'
@@ -23,14 +24,16 @@ function App() {
 
     return (
         <div className="container">
-            <MyContext.Provider value = { {tweets, theme, user, setTheme } }>
-                <Header/>
-                <Tweets/>
-                <RightSide/>
-            </MyContext.Provider>
+            <ThemeContext.Provider value = { {theme, setTheme } }>
+                <MyContext.Provider value = { {tweets, user } }>
+                    <Header/>
+                    <Tweets/>
+                    <RightSide/>
+                </MyContext.Provider>
+            </ThemeContext.Provider>
         </div>
     );
     
 }
 
-export { MyContext, App }
+export { MyContext, ThemeContext, App }
